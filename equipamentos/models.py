@@ -30,7 +30,6 @@ class Movimentacao(models.Model):
 
     def __str__(self):
         return f"{self.equipamento.nome} - {self.data_movimentacao}"
-from django.contrib import admin
-from .models import Equipamento, Movimentacao
+
 
 
