@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipamentos Excluídos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .voltar {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Equipamentos Excluídos</h1>
+
+    {% if equipamentos %}
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Nº Patrimônio</th>
+                <th>Setor</th>
+            </tr>
+            {% for equipamento in equipamentos %}
+            <tr>
+                <td>{{ equipamento.nome }}</td>
+                <td>{{ equipamento.tipo }}</td>
+                <td>{{ equipamento.numero_patrimonio }}</td>
+                <td>{{ equipamento.setor }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Nenhum equipamento excluído encontrado.</p>
+    {% endif %}
+
+    <a href="{% url 'listar_equipamentos' %}" class="voltar">⬅ Voltar para a lista</a>
+</body>
+</html>
