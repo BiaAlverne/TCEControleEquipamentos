@@ -1,2 +1,12 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-__pycache__
+# Arquivos e pastas do ambiente virtual
+venv/
+.venv/
+env/
+*.pyc
+
+# Arquivos do banco de dados local
+db.sqlite3
+
+# Arquivos temporários ou de sistema
+*~
+__pycache__/

@@ -16,20 +16,7 @@ class Equipamento(models.Model):
     setor = models.CharField(max_length=100)
     usuario_atual = models.CharField(max_length=100, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
+    ativo = models.BooleanField(default=True)  # 🔹 usado pra "excluir" sem apagar
 
     def __str__(self):
         return f"{self.nome} ({self.numero_patrimonio})"
-
-
-class Movimentacao(models.Model):
-    equipamento = models.ForeignKey(Equipamento, on_delete=models.CASCADE, related_name='movimentacoes')
-    origem = models.CharField(max_length=100)
-    destino = models.CharField(max_length=100)
-    data_movimentacao = models.DateField(auto_now_add=True)
-    observacao = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.equipamento.nome} - {self.data_movimentacao}"
-
-
-
