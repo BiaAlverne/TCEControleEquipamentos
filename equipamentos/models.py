@@ -12,12 +12,12 @@ class Equipamento(models.Model):
             ('em uso', 'Em uso'),
             ('manutenção', 'Manutenção'),
         ],
-        default='disponível'
+        default='disponível' #PADRÃO
     )
     setor = models.CharField(max_length=100)
     usuario_atual = models.CharField(max_length=100, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
-    ativo = models.BooleanField(default=True)
+    ativo = models.BooleanField(default=True) 
 
     def __str__(self):
         return f"{self.nome} ({self.numero_patrimonio})"

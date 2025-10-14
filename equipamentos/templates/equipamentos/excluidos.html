@@ -10,6 +10,7 @@
         <th>Tipo</th>
         <th>Número</th>
         <th>Status</th>
+        <th>Usuário</th>
         <th>Setor</th>
         <th>Ações</th>
       </tr>
@@ -21,6 +22,7 @@
           <td>{{ eq.tipo }}</td>
           <td>{{ eq.numero_patrimonio }}</td>
           <td>{{ eq.status }}</td>
+          <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
           <td>
             <a href="{% url 'restaurar_equipamento' eq.id %}" class="btn btn-success btn-sm">Restaurar</a>
