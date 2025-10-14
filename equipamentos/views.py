@@ -21,14 +21,30 @@ def adicionar_equipamento(request):
         numero_patrimonio = request.POST.get('numero_patrimonio')
         setor = request.POST.get('setor')
         usuario_atual = request.POST.get('usuario_atual')
-        Equipamento.objects.create(nome=nome, tipo=tipo, numero_patrimonio=numero_patrimonio, setor=setor, usuario_atual=usuario_atual)
+
+        # Verifica se já existe um equipamento ativo com esse tombo
+        if Equipamento.objects.filter(numero_patrimonio=numero_patrimonio, ativo=True).exists():
+            messages.error(request, 'Já existe um equipamento ativo com esse número de patrimônio!')
+            return redirect('adicionar_equipamento')
+
+        # Cria o novo equipamento se não houver duplicidade de tombo
+        Equipamento.objects.create(
+            nome=nome,
+            tipo=tipo,
+            numero_patrimonio=numero_patrimonio,
+            setor=setor,
+            usuario_atual=usuario_atual
+        )
+
+        messages.success(request, 'Equipamento adicionado com sucesso!')
         return redirect('listar_equipamentos')
+
     return render(request, 'equipamentos/adicionar.html')
 
 
 # Excluir (desativar) equipamento
 def excluir_equipamento(request, pk):
-    equipamento = get_object_or_404(Equipamento, pk=pk)
+    equipamento = get_object_or_404(Equipamento, pk=pk) 
     equipamento.ativo = False
     equipamento.save()
     messages.warning(request, 'Equipamento movido para a lista de excluídos.')
@@ -45,4 +61,4 @@ def restaurar_equipamento(request, pk):
     equipamento.ativo = True
     equipamento.save()
     messages.success(request, 'Equipamento restaurado com sucesso!')
-    return redirect('equipamentos_excluidos')
+    return redirect('listar_excluidos')

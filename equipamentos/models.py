@@ -4,7 +4,7 @@ from django.db import models
 class Equipamento(models.Model):
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=50)
-    numero_patrimonio = models.CharField(max_length=30, unique=True)
+    numero_patrimonio = models.CharField(max_length=30, unique=True) # Não aceita tombo duplicado
     status = models.CharField(
         max_length=20,
         choices=[
