@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Equipamentos Ativos</h2>
-<a href="{% url 'adicionar_equipamento' %}" class="btn btn-success mb-3">+ Novo Equipamento</a>
+<a href="{% url 'adicionar_equipamento2' %}" class="btn btn-success mb-3">+ Novo Equipamento</a> <!--mudar aqui para alterar o equipamento-->
 
 {% if equipamentos %}
   <table class="table table-striped">
@@ -23,7 +23,7 @@
           <td>{{ eq.nome }}</td>
           <td>{{ eq.tipo }}</td>
           <td>{{ eq.numero_patrimonio }}</td>
-          <td>{{ eq.status }}</td>
+          <td>{{ eq.get_status_display }}</td>  <!--Mostra o valor legível do status-->
           <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
           <td>

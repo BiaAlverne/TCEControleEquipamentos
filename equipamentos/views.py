@@ -21,10 +21,11 @@ def adicionar_equipamento(request):
         numero_patrimonio = request.POST.get('numero_patrimonio')
         setor = request.POST.get('setor')
         usuario_atual = request.POST.get('usuario_atual')
+        status = request.POST.get('status') 
 
         # Verifica se já existe um equipamento ativo com esse tombo
-        if Equipamento.objects.filter(numero_patrimonio=numero_patrimonio, ativo=True).exists():
-            messages.error(request, 'Já existe um equipamento ativo com esse número de patrimônio!')
+        if Equipamento.objects.filter(numero_patrimonio=numero_patrimonio).exists(): # Foi retirado o ativo=true 
+            messages.warning(request, 'O número de patrimômio não pode ser repetido, mesmo que já esteja excluído!')
             return redirect('adicionar_equipamento')
 
         # Cria o novo equipamento se não houver duplicidade de tombo
@@ -33,13 +34,26 @@ def adicionar_equipamento(request):
             tipo=tipo,
             numero_patrimonio=numero_patrimonio,
             setor=setor,
-            usuario_atual=usuario_atual
+            usuario_atual=usuario_atual,
+            status=status
+
+            
         )
 
         messages.success(request, 'Equipamento adicionado com sucesso!')
         return redirect('listar_equipamentos')
 
     return render(request, 'equipamentos/adicionar.html')
+
+# Adicionar equipamento usando ModelForm
+def adicionar_equipamento2(request):
+    if request.method == 'POST':
+        form = EquipamentoForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = EquipamentoForm()
+    return render(request, 'equipamentos/adicionar2.html') #foi reitrado o , {'form': form} e agora retorna para a página de adicionar
 
 
 # Excluir (desativar) equipamento

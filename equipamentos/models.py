@@ -16,8 +16,8 @@ class Equipamento(models.Model):
     )
     setor = models.CharField(max_length=100)
     usuario_atual = models.CharField(max_length=100, blank=True, null=True)
-    observacao = models.TextField(blank=True, null=True)
-    ativo = models.BooleanField(default=True) 
+    observacao = models.TextField(blank=True, null=True) 
+    ativo = models.BooleanField (default=True)  # Campo para marcar se o equipamento está ativo ou excluído
 
     def __str__(self):
         return f"{self.nome} ({self.numero_patrimonio})"
