@@ -53,16 +53,10 @@ def adicionar_equipamento2(request):
             form.save()
             messages.success(request, 'Equipamento adicionado com sucesso!')
             return redirect('listar_equipamentos')
-        
-        else: 
-             messages.warning(request, str(form.errors))
-
-         
+         #foi retirado o else com mensagem de erro, pq o próprio form já faz isso
     else:
         form = EquipamentoForm()
     return render(request, 'equipamentos/adicionar2.html', {'form': form} ) 
-
-
 
 
 # Excluir (desativar) equipamento
