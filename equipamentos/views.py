@@ -19,9 +19,10 @@ def adicionar_equipamento(request):
         nome = request.POST.get('nome')
         tipo = request.POST.get('tipo')
         numero_patrimonio = request.POST.get('numero_patrimonio')
+        status = request.POST.get('status') 
         setor = request.POST.get('setor')
         usuario_atual = request.POST.get('usuario_atual')
-        status = request.POST.get('status') 
+       
 
         # Verifica se já existe um equipamento ativo com esse tombo
         if Equipamento.objects.filter(numero_patrimonio=numero_patrimonio).exists(): # Foi retirado o ativo=true 
@@ -33,10 +34,9 @@ def adicionar_equipamento(request):
             nome=nome,
             tipo=tipo,
             numero_patrimonio=numero_patrimonio,
+            status=status,
             setor=setor,
-            usuario_atual=usuario_atual,
-            status=status
-
+            usuario_atual=usuario_atual
             
         )
 
@@ -51,9 +51,18 @@ def adicionar_equipamento2(request):
         form = EquipamentoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Equipamento adicionado com sucesso!')
+            return redirect('listar_equipamentos')
+        
+        else: 
+             messages.warning(request, str(form.errors))
+
+         
     else:
         form = EquipamentoForm()
-    return render(request, 'equipamentos/adicionar2.html') #foi reitrado o , {'form': form} e agora retorna para a página de adicionar
+    return render(request, 'equipamentos/adicionar2.html', {'form': form} ) 
+
+
 
 
 # Excluir (desativar) equipamento
