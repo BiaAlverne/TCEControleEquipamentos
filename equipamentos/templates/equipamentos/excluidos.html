@@ -12,6 +12,7 @@
         <th>Status</th>
         <th>Usuário</th>
         <th>Setor</th>
+        <th>Observação</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -24,8 +25,10 @@
           <td>{{ eq.status }}</td>
           <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
+          <td>{{ eq.observacao }}</td>
           <td>
             <a href="{% url 'restaurar_equipamento' eq.id %}" class="btn btn-success btn-sm">Restaurar</a>
+            <a href="{% url 'delete_equipamento' eq.id %}" class="btn btn-danger btn-sm">Excluir Permanentemente</a>
           </td>
         </tr>
       {% endfor %}

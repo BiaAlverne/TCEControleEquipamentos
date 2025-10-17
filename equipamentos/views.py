@@ -58,6 +58,19 @@ def adicionar_equipamento2(request):
         form = EquipamentoForm()
     return render(request, 'equipamentos/adicionar2.html', {'form': form} ) 
 
+# Editar equipamento
+def editar_equipamento(request, pk):
+    equipamento = get_object_or_404(Equipamento, pk=pk)
+    if request.method == 'POST':
+        form = EquipamentoForm(request.POST, instance=equipamento)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Equipamento atualizado com sucesso!')
+            return redirect('listar_equipamentos')
+    else:
+        form = EquipamentoForm(instance=equipamento)
+    return render(request, 'equipamentos/editar.html', {'form': form, 'equipamento': equipamento})
+
 
 # Excluir (desativar) equipamento
 def excluir_equipamento(request, pk):
@@ -78,4 +91,11 @@ def restaurar_equipamento(request, pk):
     equipamento.ativo = True
     equipamento.save()
     messages.success(request, 'Equipamento restaurado com sucesso!')
+    return redirect('listar_excluidos')
+
+# Deletar equipamento permanentemente
+def delete_equipamento(request, pk):
+    equipamento = get_object_or_404(Equipamento, pk=pk)
+    equipamento.delete()
+    messages.warning(request, 'Equipamento excluído permanentemente.')
     return redirect('listar_excluidos')
