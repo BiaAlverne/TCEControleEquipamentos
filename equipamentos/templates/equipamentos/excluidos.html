@@ -1,7 +1,7 @@
 {% extends 'equipamentos/base.html' %}
 
 {% block content %}
-<h2>Equipamentos Excluídos</h2>
+<h2 class= "fw-bold" >Equipamentos Excluídos</h2>
 {% if equipamentos %}
   <table class="table table-striped">
     <thead>
@@ -26,7 +26,7 @@
           <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
           <td>{{ eq.observacao }}</td>
-          <td>
+          <td>         
             <a href="{% url 'restaurar_equipamento' eq.id %}" class="btn btn-success btn-sm">Restaurar</a>
             <a href="{% url 'delete_equipamento' eq.id %}" class="btn btn-danger btn-sm">Excluir Permanentemente</a>
           </td>

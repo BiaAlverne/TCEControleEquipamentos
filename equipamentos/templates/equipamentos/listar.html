@@ -1,7 +1,7 @@
 {% extends 'equipamentos/base.html' %}
 
 {% block content %}
-<h2>Equipamentos Ativos</h2>
+<h2 class= "fw-bold">Equipamentos Ativos</h2>
 <a href="{% url 'adicionar_equipamento2' %}" class="btn btn-success mb-3">+ Novo Equipamento</a> <!--mudar aqui para alterar o equipamento-->
 
 {% if equipamentos %}
@@ -29,6 +29,7 @@
           <td>{{ eq.setor }}</td>
           <td>{{ eq.observacao }}</td>
           <td>
+            <a href="{% url 'editar_equipamento' eq.id %}" class="btn btn-primary btn-sm">Editar</a>
             <a href="{% url 'excluir_equipamento' eq.id %}" class="btn btn-danger btn-sm">Excluir</a>
           </td>
         </tr>
