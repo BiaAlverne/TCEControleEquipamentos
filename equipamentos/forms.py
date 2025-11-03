@@ -14,3 +14,5 @@ class EquipamentoForm(forms.ModelForm):
         if Equipamento.objects.filter(numero_patrimonio=numero_patrimonio).exists():
             raise forms.ValidationError("O número de patrimômio não pode ser repetido, mesmo que já esteja excluído!")
         return numero_patrimonio
+    
+    

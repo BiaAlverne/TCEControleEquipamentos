@@ -9,11 +9,24 @@
         <h6 class="mb-4 text-danger">Edição limitada: altere o tombo para modificar outros campos ou clique em cancelar!</h6> 
         <!-- TODO: ajustar para permitir alteração sem incluir um novo tombo-->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-            <a href="{% url 'listar_equipamentos' %}" class="btn btn-secondary">Cancelar</a>
-        </form>
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+
+            {% if field.name == 'numero_patrimonio' %}
+                <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                       value="{{ field.value }}" class="form-control" readonly>
+            {% else %}
+                {{ field }}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    <a href="{% url 'listar_equipamentos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
     </div>
 </div>
 {% endblock %}
