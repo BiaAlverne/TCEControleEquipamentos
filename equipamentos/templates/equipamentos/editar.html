@@ -6,23 +6,23 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <h3 class="mb-4 fw-bold" >Editar Equipamento</h3>
-        <h6 class="mb-4 text-danger">Edição limitada: altere o tombo para modificar outros campos ou clique em cancelar!</h6> 
-        <!-- TODO: ajustar para permitir alteração sem incluir um novo tombo-->
-        <form method="post">
+        <h6 class="mb-4 text-danger">O número de pratimônio não pode ser alterado!</h6> 
+
+<form method="post" class="card p-3 shadow-sm">
     {% csrf_token %}
     {% for field in form %}
         <div class="mb-3">
             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-
-            {% if field.name == 'numero_patrimonio' %}
-                <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
-                       value="{{ field.value }}" class="form-control" readonly>
-            {% else %}
-                {{ field }}
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger small mt-1">
+                    {% for error in field.errors %}
+                        • {{ error }}
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
     {% endfor %}
-
     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     <a href="{% url 'listar_equipamentos' %}" class="btn btn-secondary">Cancelar</a>
 </form>

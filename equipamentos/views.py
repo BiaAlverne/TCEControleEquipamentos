@@ -6,31 +6,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
-# Listar equipamentos ativos
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
-
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Listar equipamentos excluídos
 def equipamentos_excluidos(request):
     equipamentos = Equipamento.objects.filter(ativo=False)
     return render(request, 'equipamentos/excluidos.html', {'equipamentos': equipamentos})
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Adicionar novo equipamento/usuário/setor
 def adicionar_equipamento(request):
     if request.method == 'POST':
@@ -63,11 +43,6 @@ def adicionar_equipamento(request):
 
     return render(request, 'equipamentos/adicionar.html')
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Adicionar equipamento usando ModelForm
 def adicionar_equipamento2(request):
     if request.method == 'POST':
@@ -81,11 +56,6 @@ def adicionar_equipamento2(request):
         form = EquipamentoForm()
     return render(request, 'equipamentos/adicionar2.html', {'form': form} ) 
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Editar equipamento
 def editar_equipamento(request, pk):
     equipamento = get_object_or_404(Equipamento, pk=pk)
@@ -99,11 +69,6 @@ def editar_equipamento(request, pk):
         form = EquipamentoForm(instance=equipamento)
     return render(request, 'equipamentos/editar.html', {'form': form, 'equipamento': equipamento})
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Excluir (desativar) equipamento
 def excluir_equipamento(request, pk):
     equipamento = get_object_or_404(Equipamento, pk=pk) 
@@ -112,21 +77,11 @@ def excluir_equipamento(request, pk):
     messages.warning(request, 'Equipamento movido para a lista de excluídos.')
     return redirect('listar_equipamentos')
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Listar equipamentos excluídos
 def listar_excluidos(request):
     equipamentos_excluidos = Equipamento.objects.filter(ativo=False)
     return render(request, 'equipamentos/excluidos.html', {'equipamentos': equipamentos_excluidos})
 
-# Listar equipamentos ativos (requer login)
-@login_required
-def listar_equipamentos(request):
-    equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
 # Restaurar equipamento
 def restaurar_equipamento(request, pk):
     equipamento = get_object_or_404(Equipamento, pk=pk)
