@@ -6,15 +6,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
 from django.core.paginator import Paginator
-from django.views.generic import ListView
-
-
-
-# paginação dos equipamentos
-class pagination(ListView):
-    model = Equipamento
-    paginate_by = 2  # Número de equipamentos por página
-    
 
 
 # Listar equipamentos excluídos
@@ -105,7 +96,15 @@ def restaurar_equipamento(request, pk):
 @login_required
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.filter(ativo=True)
-    return render(request, 'equipamentos/listar.html', {'equipamentos': equipamentos})
+    paginator = Paginator(equipamentos, 2)  # 2 por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'equipamentos/listar.html', {
+        'page_obj': page_obj,
+        'total': equipamentos.count()
+    })
+
 # Deletar equipamento permanentemente
 def delete_equipamento(request, pk):
     equipamento = get_object_or_404(Equipamento, pk=pk)

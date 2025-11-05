@@ -1,10 +1,13 @@
 {% extends 'equipamentos/base.html' %}
-
 {% block content %}
-<h2 class= "fw-bold">Equipamentos Ativos</h2>
-<a href="{% url 'adicionar_equipamento2' %}" class="btn btn-success mb-3">+ Novo Equipamento</a> <!--mudar aqui para alterar o equipamento-->
+<h2 class="fw-bold">Equipamentos Ativos</h2>
+<a href="{% url 'adicionar_equipamento2' %}" class="btn btn-success mb-3">+ Novo Equipamento</a>
 
-{% if equipamentos %}
+{% if page_obj %}
+  <p class="text-muted">
+    Mostrando {{ page_obj.start_index }} – {{ page_obj.end_index }} de {{ total }} equipamentos.
+  </p>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -14,17 +17,17 @@
         <th>Status</th>
         <th>Usuário</th>
         <th>Setor</th>
-        <th>Observação</th> <!--Nova coluna para observação-->
+        <th>Observação</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      {% for eq in equipamentos %}
+      {% for eq in page_obj %}
         <tr>
           <td>{{ eq.nome }}</td>
           <td>{{ eq.tipo }}</td>
           <td>{{ eq.numero_patrimonio }}</td>
-          <td>{{ eq.get_status_display }}</td>  <!--Mostra o valor do status-->
+          <td>{{ eq.get_status_display }}</td>
           <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
           <td>{{ eq.observacao }}</td>
@@ -36,7 +39,39 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <!-- Navegação de páginas -->
+  <div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Navegação de páginas">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">Próxima</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
 {% else %}
   <p>Nenhum equipamento cadastrado.</p>
 {% endif %}
+
 {% endblock %}
