@@ -10,5 +10,8 @@ urlpatterns = [
     path('excluir/<int:pk>/', views.excluir_equipamento, name='excluir_equipamento'),
     path('excluidos/', views.listar_excluidos, name='listar_excluidos'),
     path('restaurar/<int:pk>/', views.restaurar_equipamento, name='restaurar_equipamento'), # Estava faltando essa linha pra lista de excluidos funcionar 
-    path('delete/<int:pk>/', views.delete_equipamento, name='delete_equipamento')
+    path('delete/<int:pk>/', views.delete_equipamento, name='delete_equipamento'),
+    path('', views.pagination_view, name='pagination_view'), # rota para paginação
+
+    
 ]

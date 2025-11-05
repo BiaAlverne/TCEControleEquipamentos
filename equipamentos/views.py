@@ -5,6 +5,17 @@ from .forms import EquipamentoForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+
+
+
+# paginação dos equipamentos
+class pagination(ListView):
+    model = Equipamento
+    paginate_by = 2  # Número de equipamentos por página
+    
+
 
 # Listar equipamentos excluídos
 def equipamentos_excluidos(request):
