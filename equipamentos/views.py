@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Equipamento
 from .forms import EquipamentoForm
+from .models import Perfil
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
@@ -83,6 +84,7 @@ def excluir_equipamento(request, pk):
     return redirect('listar_equipamentos')
 
 # Listar equipamentos excluídos
+@login_required
 def listar_excluidos(request):
     equipamentos_excluidos = Equipamento.objects.filter(ativo=False)
     return render(request, 'equipamentos/excluidos.html', {'equipamentos': equipamentos_excluidos})
@@ -138,6 +140,13 @@ def register_view(request):
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
 
+        cep = request.POST.get("cep")
+        endereco = request.POST.get("endereco")
+        bairro = request.POST.get("bairro")
+        cidade = request.POST.get("cidade")
+        estado = request.POST.get("estado")
+        tem_equipamento = request.POST.get("tem_equipamento") == "on"
+
         if password1 != password2:
             messages.error(request, "As senhas não coincidem.")
             return redirect("register")
@@ -146,16 +155,37 @@ def register_view(request):
             messages.error(request, "Usuário já existe.")
             return redirect("register")
 
-        user = User.objects.create_user(username=username, email=email, password=password1)
-        user.save()
+        # Criar usuário
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password1
+        )
+
+        # Criar perfil associado ao usuário
+        Perfil.objects.create(
+            user=user,
+            cep=cep,
+            endereco=endereco,
+            bairro=bairro,
+            cidade=cidade,
+            estado=estado,
+            tem_equipamento=tem_equipamento
+        )
+
         messages.success(request, "Usuário cadastrado com sucesso! Faça login.")
         return redirect("login")
 
     return render(request, "equipamentos/register.html")
+
+
+       
 
 # Sair do sistema
 def logout_view(request):
     logout(request)
     return redirect("login")
     return render(request, 'equipamentos/logout.html')  
+
+
 

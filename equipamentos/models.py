@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Equipamento(models.Model):
     nome = models.CharField(max_length=100)
@@ -30,3 +31,17 @@ class Movimentacao(models.Model):
 
     def __str__(self):
         return f"{self.equipamento.nome} - {self.origem} → {self.destino}"
+    
+class Perfil(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    cep = models.CharField(max_length=9, blank=True)
+    endereco = models.CharField(max_length=200, blank=True)
+    bairro = models.CharField(max_length=100, blank=True)
+    cidade = models.CharField(max_length=100, blank=True)
+    estado = models.CharField(max_length=2, blank=True)
+
+    tem_equipamento = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Perfil de {self.user.username}"

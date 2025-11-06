@@ -1,5 +1,7 @@
 from django import forms
 from .models import Equipamento
+from .models import Perfil
+
 
 class EquipamentoForm(forms.ModelForm):
     class Meta:
@@ -21,10 +23,5 @@ class EquipamentoForm(forms.ModelForm):
         elif Equipamento.objects.filter(numero_patrimonio=numero_patrimonio).exists():
             raise forms.ValidationError("O número de patrimômio não pode ser repetido, mesmo que já esteja excluído!")
         return numero_patrimonio
-    
-'''
-Class EnderecoForm(forms.ModelForm):
-    class Meta:
-        model = Endereço
-        fields = ['rua', 'cidade', 'estado', 'cep']
-    '''
+
+
