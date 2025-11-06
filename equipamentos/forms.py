@@ -22,4 +22,9 @@ class EquipamentoForm(forms.ModelForm):
             raise forms.ValidationError("O número de patrimômio não pode ser repetido, mesmo que já esteja excluído!")
         return numero_patrimonio
     
-    
+'''
+Class EnderecoForm(forms.ModelForm):
+    class Meta:
+        model = Endereço
+        fields = ['rua', 'cidade', 'estado', 'cep']
+    '''

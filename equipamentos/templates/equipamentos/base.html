@@ -15,7 +15,7 @@
   <!-- Ícone -->
   <link rel="icon" href="{% static 'imagens/equipamentos.png' %}" type="image/png">
 
-  <!-- Estilo customizado -->
+  <!-- Link CSS -->
   <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 </head>
 
@@ -29,8 +29,9 @@
         Controle de Equipamentos - TCE Roraima
       </a>
       <div>
-        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_equipamentos' %}">Listar</a>
-        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_excluidos' %}">Excluídos</a>
+        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_equipamentos' %}">Lista | </a>
+        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_excluidos' %}">Excluídos |   </a>
+        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'logout' %}">Sair</a>
       </div>
     </div>
   </nav>
@@ -51,7 +52,7 @@
 
   <!-- Rodapé -->
   <footer class="text-center mt-5 py-3 text-secondary" style="font-size: 0.9rem;">
-    © Tribunal de Contas de Roraima — Cidadania e Transparência
+    © 2025 Tribunal de Contas de Roraima - DITIN
   </footer>
 
   <!-- Bootstrap JS -->

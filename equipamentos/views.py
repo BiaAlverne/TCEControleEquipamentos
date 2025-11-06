@@ -5,7 +5,10 @@ from .forms import EquipamentoForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
+from django.contrib.auth import logout
 from django.core.paginator import Paginator
+
+
 
 
 # Listar equipamentos excluídos
@@ -96,7 +99,7 @@ def restaurar_equipamento(request, pk):
 @login_required
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.filter(ativo=True)
-    paginator = Paginator(equipamentos, 2)  # 2 por página
+    paginator = Paginator(equipamentos, 1)  # 2 por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -149,3 +152,10 @@ def register_view(request):
         return redirect("login")
 
     return render(request, "equipamentos/register.html")
+
+# Sair do sistema
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+    return render(request, 'equipamentos/logout.html')  
+
