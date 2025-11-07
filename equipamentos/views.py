@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+from django.contrib import messages 
 from .models import Equipamento
 from .forms import EquipamentoForm
 from .models import Perfil
@@ -101,7 +101,7 @@ def restaurar_equipamento(request, pk):
 @login_required
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.filter(ativo=True)
-    paginator = Paginator(equipamentos, 1)  # 2 por página
+    paginator = Paginator(equipamentos, 4)  # 2 por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -129,7 +129,7 @@ def login_view(request):
             login(request, user)
             return redirect('listar_equipamentos')  # vai pra lista se o login for ok
         else:
-            return render(request, 'equipamentos/login.html', {'error': 'Usuário ou senha incorretos.'})
+            return render(request, 'equipamentos/login.html', {'error': 'Nome de usuário ou senha inválidos.'})
     return render(request, 'equipamentos/login.html')
 
 # Página de cadastro 
@@ -152,7 +152,7 @@ def register_view(request):
             return redirect("register")
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Usuário já existe.")
+            messages.error (request, "Usuário já existe.")
             return redirect("register")
 
         # Criar usuário
@@ -177,15 +177,13 @@ def register_view(request):
         return redirect("login")
 
     return render(request, "equipamentos/register.html")
-
-
-       
+   
 
 # Sair do sistema
 def logout_view(request):
     logout(request)
     return redirect("login")
-    return render(request, 'equipamentos/logout.html')  
+    
 
 
 

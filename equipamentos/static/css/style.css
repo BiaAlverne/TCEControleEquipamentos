@@ -45,6 +45,21 @@ h2, h3 {
 .btn-danger:hover {
   background-color: #d67e00;
 }
+.btn-error {
+  background-color: #E74C3C;
+  border-color: #E74C3C;
+}
+.btn-error:hover {
+  background-color: #c0392b;
+}
+.message-error {
+  background-color: #F8D7DA;
+  color: #721C24;
+  border: 1px solid #F5C6CB;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
 
 .card {
   border: none;
@@ -59,4 +74,9 @@ h2, h3 {
 .pagination .active .page-link {
   background-color: #004C91;
   border-color: #004C91;
+}
+
+.form-control:focus {
+  border-color: #009FE3;
+  box-shadow: 0 0 5px rgba(0, 159, 227, 0.5);
 }
