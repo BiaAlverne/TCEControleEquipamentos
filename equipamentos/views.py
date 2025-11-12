@@ -155,14 +155,14 @@ def register_view(request):
             messages.error (request, "Usuário já existe.")
             return redirect("register")
 
-        # Criar usuário
+# Criar usuário
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password1
         )
 
-        # Criar perfil associado ao usuário
+ # Criar perfil associado ao usuário/cadastro
         Perfil.objects.create(
             user=user,
             cep=cep,
@@ -184,6 +184,7 @@ def logout_view(request):
     logout(request)
     return redirect("login")
     
+
 
 
 

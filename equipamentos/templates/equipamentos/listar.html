@@ -13,7 +13,7 @@
       <tr>
         <th>Nome</th>
         <th>Tipo</th>
-        <th>Número</th>
+        <th>Tombo</th>
         <th>Status</th>
         <th>Usuário</th>
         <th>Setor</th>
@@ -31,6 +31,7 @@
           <td>{{ eq.usuario_atual }}</td>
           <td>{{ eq.setor }}</td>
           <td>{{ eq.observacao }}</td>
+          
           <td>
             <a href="{% url 'editar_equipamento' eq.id %}" class="btn btn-primary btn-sm">Editar</a>
             <a href="{% url 'excluir_equipamento' eq.id %}" class="btn btn-danger btn-sm">Excluir</a>
@@ -73,5 +74,6 @@
 {% else %}
   <p>Nenhum equipamento cadastrado.</p>
 {% endif %}
+
 
 {% endblock %}
