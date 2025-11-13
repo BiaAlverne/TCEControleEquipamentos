@@ -1,6 +1,6 @@
 from django import forms
 from .models import Equipamento
-from .models import Perfil
+from .models import Cep
 
 
 class EquipamentoForm(forms.ModelForm):

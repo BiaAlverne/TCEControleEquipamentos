@@ -13,6 +13,7 @@ urlpatterns = [
     path('restaurar/<int:pk>/', views.restaurar_equipamento, name='restaurar_equipamento'), # Estava faltando essa linha pra lista de excluidos funcionar 
     path('delete/<int:pk>/', views.delete_equipamento, name='delete_equipamento'),
     path('logout/', views.logout_view, name='logout'), #Sair do sistema
+    path('user/', views.user_profile, name='user_profile'), # Página do perfil do usuário
    
 
     

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="fw-bold">Perfil do Usuário</h2>
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ user.username }}</h5>
+    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+    <class="card-text"><strong>Endereço:</strong> {{ user.profile.endereco }}, {{ user.profile.numero }}, {{ user.profile.bairro }}, {{ user.profile.cidade }}, {{ user.profile.cep }}</p>
+    <p class="card-text"><strong>Data de Registro:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
+  </div>    
+</div>
+
+<a href="{% url 'listar_equipamentos' %}" class="btn btn-secondary">Voltar à Lista de Equipamentos</a>
+{% endblock %}

@@ -7,4 +7,5 @@ urlpatterns = [
     path('contas/', include('django.contrib.auth.urls')),  # rotas padrão de autenticação do Django
     path('equipamentos/', include('equipamentos.urls')),
     path('', lambda request: redirect('equipamentos/login')),  # URL PRINCIPAL
+    
 ]

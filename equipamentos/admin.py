@@ -12,3 +12,5 @@ class EquipamentoAdmin(admin.ModelAdmin):
 class MovimentacaoAdmin(admin.ModelAdmin):
     list_display = ('equipamento', 'origem', 'destino', 'data_movimentacao')
     list_filter = ('data_movimentacao',)
+
+

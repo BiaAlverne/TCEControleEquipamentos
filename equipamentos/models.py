@@ -32,7 +32,7 @@ class Movimentacao(models.Model):
     def __str__(self):
         return f"{self.equipamento.nome} - {self.origem} → {self.destino}"
     
-class Perfil(models.Model):
+class Cep (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     cep = models.CharField(max_length=9, blank=True)
@@ -44,4 +44,5 @@ class Perfil(models.Model):
     tem_equipamento = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Perfil de {self.user.username}"
+        return f"Cep de {self.user.username}"
+    

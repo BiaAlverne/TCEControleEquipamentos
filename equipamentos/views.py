@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages 
 from .models import Equipamento
 from .forms import EquipamentoForm
-from .models import Perfil
+from .models import Cep
+from .models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
 from django.contrib.auth import logout
 from django.core.paginator import Paginator
+from django.http import HttpResponse
+
 
 
 
@@ -97,8 +100,7 @@ def restaurar_equipamento(request, pk):
     messages.success(request, 'Equipamento restaurado com sucesso!')
     return redirect('listar_excluidos')
 
-# Listar equipamentos ativos (requer login)
-@login_required
+# Listar equipamentos ativos 
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.filter(ativo=True)
     paginator = Paginator(equipamentos, 4)  # 2 por página
@@ -163,7 +165,7 @@ def register_view(request):
         )
 
  # Criar perfil associado ao usuário/cadastro
-        Perfil.objects.create(
+        Cep.objects.create(
             user=user,
             cep=cep,
             endereco=endereco,
@@ -184,7 +186,8 @@ def logout_view(request):
     logout(request)
     return redirect("login")
     
-
-
-
-
+# Página do perfil do usuário
+def user_profile(request):
+    user_profile = User.objects.get(username=request.user.username)
+    cep_profile = Cep.objects.get(user=user_profile)    
+    return render(request, "equipamentos/user.html")
