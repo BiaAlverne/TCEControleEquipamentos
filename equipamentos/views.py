@@ -138,6 +138,8 @@ def login_view(request):
 def register_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
+        nome = request.POST.get("first_name")
+        sobrenome = request.POST.get("last_name")
         email = request.POST.get("email")
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
@@ -160,6 +162,8 @@ def register_view(request):
 # Criar usuário
         user = User.objects.create_user(
             username=username,
+            first_name=nome,
+            last_name=sobrenome,
             email=email,
             password=password1
         )
@@ -167,6 +171,8 @@ def register_view(request):
  # Criar perfil associado ao usuário/cadastro
         Cep.objects.create(
             user=user,
+            first_name=nome,
+            last_name= sobrenome,
             cep=cep,
             endereco=endereco,
             bairro=bairro,
@@ -185,9 +191,10 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
-    
+
+@login_required
 # Página do perfil do usuário
 def user_profile(request):
-    user_profile = User.objects.get(username=request.user.username)
-    cep_profile = Cep.objects.get(user=user_profile)    
-    return render(request, "equipamentos/user.html")
+    user = User.objects.get(username=request.user.username)
+    cep = Cep.objects.filter(user=user).first()
+    return render(request, "equipamentos/user.html", {"user": user, "cep": cep})

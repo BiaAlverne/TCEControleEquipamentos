@@ -5,9 +5,10 @@
 <h2 class="fw-bold">Perfil do Usuário</h2>
 <div class="card mb-4">
   <div class="card-body">
-    <h5 class="card-title">{{ user.username }}</h5>
+    <p> <h5 class="card-title">{{ user.username }}</h5> </p>
+    <p class="card-text"><strong>Nome Completo:</strong> {{ user.first_name}} {{ user.last_name }}</p>
     <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-    <class="card-text"><strong>Endereço:</strong> {{ user.profile.endereco }}, {{ user.profile.numero }}, {{ user.profile.bairro }}, {{ user.profile.cidade }}, {{ user.profile.cep }}</p>
+    <class="card-text"><strong>Endereço:</strong> {{ cep.endereco }}, {{ cep.numero }}, {{ cep.bairro }}, {{ cep.cidade }}, {{ cep.cep }}</p>
     <p class="card-text"><strong>Data de Registro:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
   </div>    
 </div>

@@ -23,5 +23,17 @@ class EquipamentoForm(forms.ModelForm):
         elif Equipamento.objects.filter(numero_patrimonio=numero_patrimonio).exists():
             raise forms.ValidationError("O número de patrimômio não pode ser repetido, mesmo que já esteja excluído!")
         return numero_patrimonio
+    
+    def save(self, commit=True):
+        equipamento = super(EquipamentoForm, self).save(commit=False)
+        if commit:
+            equipamento.save()
+        return equipamento
+class CepForm(forms.ModelForm):
+    class Meta:
+        model = Cep
+        fields = ['cep', 'endereco', 'bairro', 'cidade', 'estado', 'tem_equipamento']
+    def __init__(self, *args, **kwargs):
+        super(CepForm, self).__init__(*args, **kwargs)
 
 

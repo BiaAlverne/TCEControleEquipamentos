@@ -12,6 +12,17 @@
     </div>
 
     <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" name="first_name" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Sobrenome</label>
+      <input type="text" class="form-control" name="last_name" required>
+    </div>
+
+
+    <div class="mb-3">
       <label class="form-label">E-mail</label>
       <input type="email" class="form-control" name="email" required>
     </div>
@@ -80,9 +91,9 @@
   <!--Script para buscar endereço via API do ViaCEP-->
   <script>
     document.getElementById('cep').addEventListener('blur', function() {
-      const cep = this.value.replace(/\D/g, '');
+      var cep = this.value.replace(/\D/g, '');
       if (cep.length === 8) {
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        fetch('https://viacep.com.br/ws/' + cep + '/json/')
           .then(response => response.json())
           .then(data => {
             if (!data.erro) {
@@ -91,15 +102,16 @@
               document.getElementById('cidade').value = data.localidade;
               document.getElementById('estado').value = data.uf;
             } else {
-              alert('CEP não encontrado!');
+              alert('CEP não encontrado.');
             }
           })
           .catch(() => {
-            alert('Erro ao buscar o CEP!');
+            alert('Erro ao buscar o CEP.');
           });
       }
-    })
+    });
   </script>
+  
 
 </div>
 {% endblock %}
