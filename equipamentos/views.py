@@ -151,28 +151,28 @@ def register_view(request):
         estado = request.POST.get("estado")
         tem_equipamento = request.POST.get("tem_equipamento") == "on"
 
+        # Verificação de senhas
         if password1 != password2:
             messages.error(request, "As senhas não coincidem.")
             return redirect("register")
 
+        # Verificar usuário existente
         if User.objects.filter(username=username).exists():
-            messages.error (request, "Usuário já existe.")
+            messages.error(request, "Usuário já existe.")
             return redirect("register")
 
-# Criar usuário
+        # Criar usuário com nome e sobrenome
         user = User.objects.create_user(
             username=username,
-            first_name=nome,
-            last_name=sobrenome,
             email=email,
-            password=password1
+            password=password1,
+            first_name=nome,
+            last_name=sobrenome
         )
 
- # Criar perfil associado ao usuário/cadastro
+        # Criar registro de CEP do usuário
         Cep.objects.create(
             user=user,
-            first_name=nome,
-            last_name= sobrenome,
             cep=cep,
             endereco=endereco,
             bairro=bairro,
@@ -185,7 +185,7 @@ def register_view(request):
         return redirect("login")
 
     return render(request, "equipamentos/register.html")
-   
+
 
 # Sair do sistema
 def logout_view(request):
