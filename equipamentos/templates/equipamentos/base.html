@@ -51,6 +51,42 @@
     {% block content %}{% endblock %}
   </div>
 
+  <!--Gráfico demonstrativo de equipamentos em uso, disponível e em manutenção-->
+  {% block chart %}
+<div class="container-grafico">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Disponível',     11], 
+          ['Em Uso',      7],
+          ['Em Manutenção',  3]
+        ]);
+
+        var options = {
+          title: 'Status dos Equipamentos',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>  
+
+  </body>
+</div>
+  {% endblock %}
+
+
   <!-- Rodapé -->
   <footer class="text-center mt-5 py-3 text-secondary" style="font-size: 0.9rem;">
     © 2025 Tribunal de Contas de Roraima - DITIN
