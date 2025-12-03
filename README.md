@@ -20,8 +20,8 @@
 -Edição de equipamentos existentes
 -Exclusão lógica (soft delete)
 -Página de “Excluídos” com:
-    -Restaurar equipamento
-    -Excluir definitivamente
+    - Restaurar equipamento
+    - Excluir definitivamente
 
 
 📁 Modelos do Sistema
