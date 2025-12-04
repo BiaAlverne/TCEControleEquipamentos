@@ -4,6 +4,7 @@ from .models import Equipamento
 from .forms import EquipamentoForm
 from .models import Cep
 from .models import User
+from django.db.models import Count
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User # Importa o modelo User
 from django.contrib.auth.decorators import login_required # Importa o decorador de login
@@ -106,10 +107,14 @@ def listar_equipamentos(request):
     paginator = Paginator(equipamentos, 4)  # 2 por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    contagem = equipamentos.values('status').annotate(count=Count('status'))
+    contagem = [[item['status'][0].upper() + item['status'][1:], item['count']] for item in contagem]
+    contagem.insert(0, ['Status', 'Contagem'])  # Adiciona o cabeçalho para o gráfico
 
     return render(request, 'equipamentos/listar.html', {
         'page_obj': page_obj,
-        'total': equipamentos.count()
+        'total': equipamentos.count(),
+        'contagem': contagem
     })
 
 # Deletar equipamento permanentemente

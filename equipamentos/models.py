@@ -13,6 +13,7 @@ class Equipamento(models.Model):
             ('disponível', 'Disponível'),
             ('em uso', 'Em uso'),
             ('manutenção', 'Manutenção'),
+            
         ],
         default='disponível' #PADRÃO
     )
