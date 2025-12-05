@@ -31,7 +31,7 @@
       <div>
         <a class="nav-link d-inline text-white fw-semibold" href="{% url 'user_profile' %}">Perfil | </a>
         <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_equipamentos' %}">Lista | </a>
-        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_excluidos' %}">Excluídos | </a>
+        <a class="nav-link d-inline text-white fw-semibold" href="{% url 'listar_excluidos' %}">Excluídos |   </a>
         <a class="nav-link d-inline text-white fw-semibold" href="{% url 'logout' %}">Sair</a>
       </div>
     </div>
@@ -50,37 +50,40 @@
 
     {% block content %}{% endblock %}
   </div>
+
   <!--Gráfico demonstrativo de equipamentos em uso, disponível e em manutenção-->
 
   {% block chart %}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-
         var data = google.visualization.arrayToDataTable([
-          ['Status', 'Quantidade'],
-          ['Em Uso',     {{ em_uso }}],
-          ['Disponível', {{ disponivel }}],
-          ['Em Manutenção',  {{ manutencao }}]
+          {% for item in contagem %}
+            {{ item|safe }},
+          {% endfor %}
         ]);
+
         var options = {
-          title: 'Status dos Equipamentos',
+          title: 'Status de Equipamentos',
           pieHole: 0.4,
-          colors: ['#4CAF50', '#2196F3', '#FF9800'],
+          colors: ['#4CAF50', '#FF9800', '#2196F3', '#F44336'],
           fontName: 'Open Sans',
-          fontSize: 14,
+          backgroundColor: 'transparent',
           legend: { position: 'bottom' }
         };
+
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
         chart.draw(data, options);
       }
     </script>
     <div id="piechart" style="width: 100%; height: 400px;"></div>
 </div>
 {% endblock %}
+
 
   <!-- Rodapé -->
   <footer class="text-center mt-5 py-3 text-secondary" style="font-size: 0.9rem;">
