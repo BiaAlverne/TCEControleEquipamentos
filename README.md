@@ -71,7 +71,9 @@ Opção de "Adicionar Equipamento"
 🧪 Funcionalidades Extras
 
 - Integração com API ViaCEP
-
+  
+- Gráfico que mostra o status dos equipamentos(Em uso, Manutenção e Disponível)
+  
 - Verificação automática de endereço via CEP
 
 - Checkbox para indicar se o usuário possui equipamento em casa
