@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required # Importa o decorador 
 from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+import os 
+import requests
+from openai import OpenAI
 
 
 
@@ -107,9 +110,9 @@ def listar_equipamentos(request):
     paginator = Paginator(equipamentos, 4)  # 2 por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    contagem = equipamentos.values('status').annotate(count=Count('status'))
-    contagem = [[item['status'][0].upper() + item['status'][1:], item['count']] for item in contagem]
-    contagem.insert(0, ['Status', 'Contagem'])  # Adiciona o cabeçalho para o gráfico
+    contagem = equipamentos.values('status').annotate(count=Count('status')) # Agrupa por status
+    contagem = [[item['status'][0].upper() + item['status'][1:], item['count']] for item in contagem] 
+    contagem.insert(0, ['Status', 'Contagem'])  
 
     return render(request, 'equipamentos/listar.html', {
         'page_obj': page_obj,
@@ -117,13 +120,13 @@ def listar_equipamentos(request):
         'contagem': contagem
     })
 
+
 # Deletar equipamento permanentemente
 def delete_equipamento(request, pk):
     equipamento = get_object_or_404(Equipamento, pk=pk)
     equipamento.delete()
     messages.warning(request, 'Equipamento excluído permanentemente.')
     return redirect('listar_excluidos')
-
 
 # Página de login 
 def login_view(request):
@@ -197,8 +200,8 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
-@login_required
 # Página do perfil do usuário
+@login_required
 def user_profile(request):
     user = User.objects.get(username=request.user.username)
     cep = Cep.objects.filter(user=user).first()
