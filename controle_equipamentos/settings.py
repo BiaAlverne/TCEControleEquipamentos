@@ -16,7 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'equipamentos',  # sua aplicação
+    'equipamentos',  
 ]
 
 # Middlewares
@@ -33,7 +33,7 @@ MIDDLEWARE = [
 # URLs principais
 ROOT_URLCONF = 'controle_equipamentos.urls'
 
-# Templates
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -52,7 +52,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'controle_equipamentos.wsgi.application'
 
-# Banco de dados (SQLite padrão)
+# Banco de dados (SQLite)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -83,7 +83,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Padrão Django 5.x
+# Padrão Django 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configurações de login

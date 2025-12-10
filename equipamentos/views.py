@@ -104,6 +104,7 @@ def restaurar_equipamento(request, pk):
     messages.success(request, 'Equipamento restaurado com sucesso!')
     return redirect('listar_excluidos')
 
+@login_required
 # Listar equipamentos ativos 
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.filter(ativo=True)
